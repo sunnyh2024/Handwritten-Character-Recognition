@@ -7,13 +7,13 @@ import numpy as np
 import cv2
 import os
 
-model = load_model('./digit_recognize.h5')
+model = load_model('./combined.h5')
 
 # all valid digits
-DIG_DIC = {0: '0', 1: '1', 2: '2', 3: '3', 4: '4', 5: '5', 6: '6', 7: '7', 8: '8', 9: '9'}
+ALPHA_DIC = {0:'A',1:'B',2:'C',3:'D',4:'E',5:'F',6:'G',7:'H',8:'I',9:'J',10:'K',11:'L',12:'M',13:'N',14:'O',15:'P',16:'Q',17:'R',18:'S',19:'T',20:'U',21:'V',22:'W',23:'X', 24:'Y',25:'Z',26:'0',27:'1',28:'2',29:'3',30:'4',31:'5',32:'6',33:'7', 34:'8',35:'9'}
 
 def predict_digit(img):
-    global DIG_DIC
+    global ALPHA_DIC
 
     img.save('temp.png')
     img = cv2.imread(r'.\temp.png')
@@ -29,7 +29,7 @@ def predict_digit(img):
     img_final =np.reshape(img_final, (1,28,28,1))
 
     prediction = model.predict(img_final)[0]
-    img_pred = DIG_DIC[np.argmax(prediction)]
+    img_pred = ALPHA_DIC[np.argmax(prediction)]
     percent = max(prediction)
     return img_pred, percent
 
@@ -41,7 +41,7 @@ class App(tk.Tk):
         # Creating elements
         self.canvas = tk.Canvas(self, width=300, height=300, bg = "white", cursor="cross")
         self.label = tk.Label(self, text="Thinking..", font=("Helvetica", 48))
-        self.classify_btn = tk.Button(self, text = "Recognise", command = self.classify_handwriting) 
+        self.classify_btn = tk.Button(self, text = "Recognise", command =         self.classify_handwriting) 
         self.button_clear = tk.Button(self, text = "Clear", command = self.clear_all)
         # Grid structure
         self.canvas.grid(row=0, column=0, pady=2, sticky=W, )
