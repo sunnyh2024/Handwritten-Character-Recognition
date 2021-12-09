@@ -1,14 +1,18 @@
 import matplotlib.pyplot as plt
 import cv2
 import numpy as np
-from sgd import SGD
 from keras.models import Sequential
 from keras.layers import Dense, Flatten, Conv2D, MaxPool2D
-from tensorflow.keras.optimizers import SGD
+from tensorflow.keras.optimizers import SGD, Adam
 from tensorflow.keras.utils import to_categorical
 import pandas as pd
 import numpy as np
 from sklearn.model_selection import train_test_split
+
+# Used these resource for help:
+# https://machinelearningmastery.com/convolutional-layers-for-deep-learning-neural-networks/
+# https://towardsdatascience.com/a-comprehensive-guide-to-convolutional-neural-networks-the-eli5-way-3bd2b1164a53
+# https://www.analyticsvidhya.com/blog/2021/06/building-a-convolutional-neural-network-using-tensorflow-keras/
 
 # read the digit training data
 digits_csv = pd.read_csv('./data/mnist_train.csv').astype('float32')
